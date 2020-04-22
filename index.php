@@ -40,7 +40,28 @@ $posts = [
         'avatar' => 'userpic.jpg'
     ]
 ];
+
+
+function cropText($text, $length = 300)
+{
+    if (mb_strlen($text) <= $length) {
+        return '<p>' . $text . '</p>';
+    } else {
+        $text = explode(' ', $text);
+        $length_word = 0;
+        foreach ($text as $word) {
+            $length_word += (mb_strlen($word)) + 1;
+            if ($length_word > 300) {
+                break;
+            } else {
+                $text_sup[]= $word; 
+            }
+        }
+        return '<p>' . implode(' ', $text_sup) . '...</p><a class="post-text__more-link" href="#">Читать далее</a>';
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -274,7 +295,7 @@ $posts = [
                                 <img src="img/<?=$post['post_content']; ?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
                         <?php elseif ($post['post_type'] == 'post-text') : ?>
-                            <p><?=$post['post_content']; ?></p>
+                            <?=cropText($post['post_content']); ?>
                         <?php elseif ($post['post_type'] == 'post-video') : ?> 
                         <div class="post-video__block">
                             <div class="post-video__preview">
@@ -294,7 +315,6 @@ $posts = [
                         <div class="post__author">
                             <a class="post__author-link" href="#" title="Автор">
                                 <div class="post__avatar-wrapper">
-                                    <!--укажите путь к файлу аватара-->
                                     <img class="post__author-avatar" src="img/<?=$post['avatar']; ?>" alt="Аватар пользователя">
                                 </div>
                                 <div class="post__info">
