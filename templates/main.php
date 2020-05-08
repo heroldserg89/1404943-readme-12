@@ -90,13 +90,13 @@
 
                 <article class="popular__post post <?=$post['post_type']; ?>">
                     <header class="post__header">
-                        <h2><?=$post['post_title']; ?></h2>
+                        <h2><?=htmlspecialchars($post['post_title']); ?></h2>
                     </header>
                     <div class="post__main">
                         <?php if ($post['post_type'] == 'post-quote') : ?>
                             <blockquote>
                                 <p>
-                                    <?=$post['post_content']; ?>
+                                    <?=htmlspecialchars($post['post_content']); ?>
                                 </p>
                                 <cite>Неизвестный Автор</cite>
                             </blockquote>
@@ -108,18 +108,18 @@
                                             <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
                                         </div>
                                         <div class="post-link__info">
-                                            <h3><?=$post['post_title']; ?></h3>
+                                            <h3><?=htmlspecialchars($post['post_title']); ?></h3>
                                         </div>
                                     </div>
-                                    <span> <?=$post['post_content']; ?></span>
+                                    <span> <?=htmlspecialchars($post['post_content']); ?></span>
                                 </a>
                             </div>
                         <?php elseif ($post['post_type'] == 'post-photo') : ?>
                              <div class="post-photo__image-wrapper">
-                                <img src="img/<?=$post['post_content']; ?>" alt="Фото от пользователя" width="360" height="240">
+                                <img src="img/<?=htmlspecialchars($post['post_content']); ?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
                         <?php elseif ($post['post_type'] == 'post-text') : ?>
-                            <?=cropText($post['post_content']); ?>
+                            <?=cropText(htmlspecialchars($post['post_content'])); ?>
                         <?php elseif ($post['post_type'] == 'post-video') : ?> 
                         <div class="post-video__block">
                             <div class="post-video__preview">
@@ -142,7 +142,7 @@
                                     <img class="post__author-avatar" src="img/<?=$post['avatar']; ?>" alt="Аватар пользователя">
                                 </div>
                                 <div class="post__info">
-                                    <b class="post__author-name"><?=$post['post_author']; ?></b>
+                                    <b class="post__author-name"><?=htmlspecialchars($post['post_author']); ?></b>
                                     <time class="post__time" datetime="">дата</time>
                                 </div>
                             </a>

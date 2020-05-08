@@ -1,6 +1,5 @@
 <?php
-require 'helpers.php';    
-$is_auth = rand(0, 1);
+require 'helpers.php';
 
 $posts = [
     [
@@ -63,10 +62,10 @@ function cropText($text, $length = 300)
 $page_content = include_template('main.php', [
     'posts' => $posts, 
 ]);
-$page_content = htmlspecialchars($page_content);
 
 print include_template('layout.php', [
+    'is_auth' => rand(0, 1),
     'title_page' => 'Популярные посты', 
     'user_name' => 'Сергей',
-    'page_content' => html_entity_decode($page_content)
+    'page_content' => $page_content
 ]);
