@@ -86,7 +86,8 @@
         </div>
         <div class="popular__posts">
             
-            <?php foreach ($posts as $post) : ?> 
+            <?php
+            foreach ($posts as $key=>$post) : ?> 
 
                 <article class="popular__post post <?=$post['post_type']; ?>">
                     <header class="post__header">
@@ -143,7 +144,30 @@
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><?=htmlspecialchars($post['post_author']); ?></b>
-                                    <time class="post__time" datetime="">дата</time>
+                                    <?php 
+                                       
+                                        $date_publish = generate_random_date($key);
+                                        $cur_date = strtotime('now');
+                                        $date_interval = ($cur_date - strtotime($date_publish))/60;
+
+                                        if ($date_interval < 60) {
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'минута', 'минуты', 'минут');
+                                        } elseif ($date_interval / 60 < 24) {
+                                            $date_interval = ceil($date_interval / 60);
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'час', 'часа', 'часов');
+                                        } elseif ($date_interval / (60 * 24) < 7) {
+                                            $date_interval = ceil($date_interval / (60 * 24));
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'день', 'дня', 'дней');
+                                        } elseif ($date_interval / (60 * 24 * 7) < 5) {
+                                            $date_interval = ceil($date_interval / (60 * 24 * 7));
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'неделю', 'недели', 'недель');
+                                        } else {
+                                            $date_interval = ceil($date_interval / (60 * 24 * 30 ));
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'месяц', 'месяца', 'месяцев');
+                                        }
+                                        $date_interval_relative = "{$date_interval} {$date_noun_form} назад";
+                                    ?>
+                                    <time class="post__time" title="<?=date('d.m.Y H:i', strtotime($date_publish));?>" datetime="<?=$date_publish;?>"><?=$date_interval_relative;?></time>
                                 </div>
                             </a>
                         </div>
@@ -170,7 +194,6 @@
                         </div>
                     </footer>
                 </article>
-
             <?php endforeach; ?>
 
         </div>
