@@ -150,21 +150,22 @@
                                         $cur_date = strtotime('now');
                                         $date_interval = ($cur_date - strtotime($date_publish))/60;
 
-                                        if($date_interval < 60) {
-                                            $date_interval_relative = $date_interval . ' ' . get_noun_plural_form($date_interval, 'минута', 'минуты', 'минут') . ' назад';
-                                        }elseif($date_interval / 60 < 24){
-                                            $date_interval = ceil($date_interval/60);
-                                            $date_interval_relative = $date_interval . ' ' . get_noun_plural_form($date_interval, 'час', 'часа', 'часов') . ' назад';
-                                        }elseif($date_interval / (60 * 24) < 7){
-                                            $date_interval = ceil($date_interval/(60 * 24));
-                                            $date_interval_relative = $date_interval . ' ' . get_noun_plural_form($date_interval, 'день', 'дня', 'дней') . ' назад';
-                                        }elseif($date_interval / (60 * 24 * 7) < 5){
-                                            $date_interval = ceil($date_interval/(60 * 24 * 7));
-                                            $date_interval_relative = $date_interval . ' ' . get_noun_plural_form($date_interval, 'неделю', 'недели', 'недель') . ' назад';
-                                        }else{
-                                            $date_interval = ceil($date_interval/(60 * 24 * 7 * 30 ));
-                                            $date_interval_relative = $date_interval . ' ' . get_noun_plural_form($date_interval, 'месяц', 'месяца', 'месяцев') . ' назад';
+                                        if ($date_interval < 60) {
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'минута', 'минуты', 'минут');
+                                        } elseif ($date_interval / 60 < 24) {
+                                            $date_interval = ceil($date_interval / 60);
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'час', 'часа', 'часов');
+                                        } elseif ($date_interval / (60 * 24) < 7) {
+                                            $date_interval = ceil($date_interval / (60 * 24));
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'день', 'дня', 'дней');
+                                        } elseif ($date_interval / (60 * 24 * 7) < 5) {
+                                            $date_interval = ceil($date_interval / (60 * 24 * 7));
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'неделю', 'недели', 'недель');
+                                        } else {
+                                            $date_interval = ceil($date_interval / (60 * 24 * 30 ));
+                                            $date_noun_form = get_noun_plural_form($date_interval, 'месяц', 'месяца', 'месяцев');
                                         }
+                                        $date_interval_relative = "{$date_interval} {$date_noun_form} назад";
                                     ?>
                                     <time class="post__time" title="<?=date('d.m.Y H:i', strtotime($date_publish));?>" datetime="<?=$date_publish;?>"><?=$date_interval_relative;?></time>
                                 </div>
