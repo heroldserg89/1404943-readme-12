@@ -29,7 +29,11 @@ CREATE DATABASE readme
 		id INT AUTO_INCREMENT PRIMARY KEY,
 		publication_dt DATETIME,
 		title VARCHAR(255),
-		content VARCHAR(500),
+		content TEXT,
+		author_quote VARCHAR(128),
+		image_url VARCHAR(128),
+		link VARCHAR(128),
+		video_url VARCHAR(128),
 		show_count INT,
 		user_id INT,
 		post_type INT,
@@ -39,7 +43,7 @@ CREATE DATABASE readme
 		FOREIGN KEY (hashtag) REFERENCES hashtags(id)
 	);
 	CREATE INDEX s_title ON posts(title);
-	CREATE INDEX s_content ON posts(content);
+	CREATE FULLTEXT INDEX s_content ON posts(content);
 	
 	CREATE TABLE comments (
 		id INT AUTO_INCREMENT PRIMARY KEY,
