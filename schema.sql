@@ -73,11 +73,11 @@ CREATE DATABASE readme
 	
 	CREATE TABLE messages (
 		id INT AUTO_INCREMENT PRIMARY KEY,
-		message_dt DATETIME,
-		message_content TEXT,
-		message_author INT,
-		message_recipient INT,
-		FOREIGN KEY (message_author) REFERENCES users(id),
-		FOREIGN KEY (message_recipient) REFERENCES users(id)
+		date DATETIME,
+		content TEXT,
+		author INT,
+		recipient INT,
+		FOREIGN KEY (author) REFERENCES users(id),
+		FOREIGN KEY (recipient) REFERENCES users(id)
 	);
 	
