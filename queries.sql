@@ -18,7 +18,7 @@ INSERT INTO comments SET comment_dt = '2020-07-05 06:43:51', comment_content = '
 INSERT INTO comments SET comment_dt = '2020-07-02 07:06:51', comment_content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et magnis dis parturient montes nascetur ridiculus mus mauris vitae. Volutpat blandit aliquam etiam erat velit scelerisque in dictum. At elementum eu facilisis sed odio. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus.', user_id = '2', post_id = '3';
 
 -- Cписок постов с сортировкой по популярности и вместе с именами авторов и типом контента
-SELECT p.*, u.login, pt.post_type FROM posts p INNER JOIN users u ON p.user_id = u.id INNER JOIN post_types pt ON p.post_type = pt.id ORDER BY show_count DESC;
+SELECT p.*, u.login,  pt.post_type FROM posts p INNER JOIN users u ON p.user_id = u.id INNER JOIN post_types pt ON p.post_type = pt.id ORDER BY show_count DESC;
 -- Cписок постов для конкретного пользователя
 SELECT * FROM posts WHERE user_id = '1';
 -- Cписок комментариев для одного поста, в комментариях должен быть логин пользователя
