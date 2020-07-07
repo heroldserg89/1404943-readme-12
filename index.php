@@ -5,20 +5,15 @@ require 'helpers.php';
 $con = mysqli_connect('localhost', 'root', 'root', 'readme');
 $sql_posts = 'SELECT p.*, u.login, u.avatar_url, pt.post_type, pt.class_icon FROM posts p INNER JOIN users u ON p.user_id = u.id INNER JOIN post_types pt ON p.post_type = pt.id ORDER BY show_count DESC';
 $result_posts = mysqli_query($con, $sql_posts);
-
-if (!$result_posts) { 
-    $error = mysqli_error($con); 
-    print("Ошибка MySQL: " . $error);
-}else{
+$posts = [];
+if ($result_posts) { 
     $posts = mysqli_fetch_all($result_posts, MYSQLI_ASSOC);
 }
 
 $sql_post_types = 'SELECT * FROM post_types';
 $result_post_types =  mysqli_query($con, $sql_post_types);
-if (!$result_post_types) { 
-    $error = mysqli_error($con); 
-    print("Ошибка MySQL: " . $error);
-}else{
+$post_types = [];
+if ($result_post_types) { 
     $post_types = mysqli_fetch_all($result_post_types, MYSQLI_ASSOC);
 }
 

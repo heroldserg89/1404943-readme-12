@@ -33,7 +33,7 @@
                     </li>
                 </ul>
             </div>
-            
+            <?php if(is_array($post_types)) : ?>
             <div class="popular__filters filters">
                 <b class="popular__filters-caption filters__caption">Тип контента:</b>
                 <ul class="popular__filters-list filters__list">
@@ -92,6 +92,7 @@
                     endforeach; ?>
                 </ul>
             </div>
+        <?php endif; ?>
         </div>
         <div class="popular__posts">
             
