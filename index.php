@@ -2,44 +2,20 @@
 require 'config.php';
 require 'helpers.php';
 
-$posts = [
-    [
-        'post_type' => 'post-quote',
-        'post_title' => 'Цитата',
-        'post_content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
-        'post_author' => 'Лариса',
-        'avatar' => 'userpic-larisa-small.jpg'
-    ],
-    [
-        'post_type' => 'post-text',
-        'post_title' => 'Игра престолов',
-        'post_content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
-        'post_author' => 'Владик',
-        'avatar' => 'userpic.jpg'
-    ],
-    [
-        'post_type' => 'post-photo',
-        'post_title' => 'Наконец, обработал фотки!',
-        'post_content' => 'rock-medium.jpg',
-        'post_author' => 'Виктор',
-        'avatar' => 'userpic-mark.jpg'
-    ],
-    [
-        'post_type' => 'post-photo',
-        'post_title' => 'Моя мечта',
-        'post_content' => 'coast-medium.jpg',
-        'post_author' => 'Лариса',
-        'avatar' => 'userpic-larisa-small.jpg'
-    ],
-    [
-        'post_type' => 'post-link',
-        'post_title' => 'Лучшие курсы',
-        'post_content' => 'www.htmlacademy.ru',
-        'post_author' => 'Владик',
-        'avatar' => 'userpic.jpg'
-    ]
-];
+$con = mysqli_connect('localhost', 'root', 'root', 'readme');
+$sql_posts = 'SELECT p.*, u.login, u.avatar_url, pt.post_type, pt.class_icon FROM posts p INNER JOIN users u ON p.user_id = u.id INNER JOIN post_types pt ON p.post_type = pt.id ORDER BY show_count DESC';
+$result_posts = mysqli_query($con, $sql_posts);
+$posts = [];
+if ($result_posts) { 
+    $posts = mysqli_fetch_all($result_posts, MYSQLI_ASSOC);
+}
 
+$sql_post_types = 'SELECT * FROM post_types';
+$result_post_types =  mysqli_query($con, $sql_post_types);
+$post_types = [];
+if ($result_post_types) { 
+    $post_types = mysqli_fetch_all($result_post_types, MYSQLI_ASSOC);
+}
 
 function cropText($text, $length = 300)
 {
@@ -62,6 +38,7 @@ function cropText($text, $length = 300)
 
 $page_content = include_template('main.php', [
     'posts' => $posts, 
+    'post_types' => $post_types
 ]);
 
 print include_template('layout.php', [
