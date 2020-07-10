@@ -10,9 +10,9 @@ INSERT INTO users SET login = 'herold', email = 'herold@gmail.com', PASSWORD = '
 INSERT INTO posts SET publication_dt = '2020-07-05 06:43:51', title = 'Цитата', content = 'Мы в жизни любим только раз, а после ищем лишь похожих', author_quote = 'Неизвестный Автор
 ', user_id = '1', post_type = '3'; 
 INSERT INTO posts SET publication_dt = '2020-07-04 11:06:51', title = 'Игра престолов', content = 'Не могу дождаться начала финального сезона своего любимого сериала!', user_id = '2', post_type = '2'; 
-INSERT INTO posts SET publication_dt = '2020-07-02 07:06:51', title = 'Наконец, обработал фотки!', content = 'http://readme/img/rock-medium.jpg', user_id = '1', post_type = '1'; 
-INSERT INTO posts SET publication_dt = '2020-06-28 07:06:51', title = 'Моя мечта', content = 'http://readme/img/coast-medium.jpg', user_id = '2', post_type = '1'; 
-INSERT INTO posts SET publication_dt = '2019-08-05 07:06:51', title = 'Лучшие курсы', content = 'www.htmlacademy.ru', user_id = '1', post_type = '4';
+INSERT INTO posts SET publication_dt = '2020-07-02 07:06:51', title = 'Наконец, обработал фотки!', image_url = 'http://readme/img/rock-medium.jpg', user_id = '1', post_type = '1'; 
+INSERT INTO posts SET publication_dt = '2020-06-28 07:06:51', title = 'Моя мечта',  image_url = 'http://readme/img/coast-medium.jpg', user_id = '2', post_type = '1'; 
+INSERT INTO posts SET publication_dt = '2019-08-05 07:06:51', title = 'Лучшие курсы', link = 'www.htmlacademy.ru', user_id = '1', post_type = '4';
 
 INSERT INTO comments SET comment_dt = '2020-07-05 06:43:51', comment_content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et magnis dis parturient montes nascetur ridiculus mus mauris vitae. Volutpat blandit aliquam etiam erat velit scelerisque in dictum. At elementum eu facilisis sed odio. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus.', user_id = '1', post_id = '2';
 INSERT INTO comments SET comment_dt = '2020-07-02 07:06:51', comment_content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et magnis dis parturient montes nascetur ridiculus mus mauris vitae. Volutpat blandit aliquam etiam erat velit scelerisque in dictum. At elementum eu facilisis sed odio. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus.', user_id = '2', post_id = '3';
