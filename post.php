@@ -11,7 +11,6 @@ if ($result_post && (mysqli_num_rows($result_post) > 0 )) :
     $sql_author = "SELECT u.id, u.login, u.reg_dt, u.avatar_url, COUNT(DISTINCT p.id) AS post_count, COUNT(DISTINCT sb.id) AS sb_count FROM users u LEFT JOIN posts p ON p.user_id = u.id LEFT JOIN subscriptions sb ON sb.user_id = u.id WHERE u.id = {$post['user_id']} GROUP BY u.login";
     $result_author = mysqli_query($con, $sql_author);
     $author = mysqli_fetch_assoc($result_author);
-    print_r($author);
     $post_content = include_template("post-{$post['post_type']}.php",[
         'post' => $post
     ]);
