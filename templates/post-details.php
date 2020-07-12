@@ -103,26 +103,26 @@
           <div class="post-details__user-info user__info">
             <div class="post-details__avatar user__avatar">
               <a class="post-details__avatar-link user__avatar-link" href="#">
-                <img class="post-details__picture user__picture" src="<?=$post['avatar_url'];?>" alt="Аватар пользователя">
+                <img class="post-details__picture user__picture" src="<?=$author['avatar_url'];?>" alt="Аватар пользователя">
               </a>
             </div>
             <div class="post-details__name-wrapper user__name-wrapper">
               <a class="post-details__name user__name" href="#">
-                <span><?=$post['login'];?></span>
+                <span><?=$author['login'];?></span>
               </a>
               <time class="post-details__time user__time" datetime="<?=$post['reg_dt']?>">
-                <?=date_interval($post['reg_dt'], 'на сайте');?>
+                <?=date_interval($author['reg_dt'], 'на сайте');?>
               </time>
             </div>
           </div>
           <div class="post-details__rating user__rating">
             <p class="post-details__rating-item user__rating-item user__rating-item--subscribers">
-              <span class="post-details__rating-amount user__rating-amount">1856</span>
-              <span class="post-details__rating-text user__rating-text">подписчиков</span>
+              <span class="post-details__rating-amount user__rating-amount"><?=$author['sb_count'];?></span>
+              <span class="post-details__rating-text user__rating-text"><?=get_noun_plural_form($author['sb_count'], 'подписчик', 'подписчика', 'подписчиков');?></span>
             </p>
             <p class="post-details__rating-item user__rating-item user__rating-item--publications">
-              <span class="post-details__rating-amount user__rating-amount">556</span>
-              <span class="post-details__rating-text user__rating-text">публикаций</span>
+              <span class="post-details__rating-amount user__rating-amount"><?=$author['post_count'];?></span>
+              <span class="post-details__rating-text user__rating-text"><?=get_noun_plural_form($author['post_count'], 'публикация', 'публикации', 'публикаций');?></span>
             </p>
           </div>
           <div class="post-details__user-buttons user__buttons">
