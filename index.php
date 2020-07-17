@@ -5,7 +5,8 @@ require 'helpers.php';
 $con = mysqli_connect('localhost', 'root', 'root', 'readme');
 
 if(!empty($_GET['pt_id'])){
-    $where_sql_posts .= "WHERE p.post_type = {$_GET['pt_id']}";
+    $pt_id = (int)$_GET['pt_id'];
+    $where_sql_posts .= "WHERE p.post_type = {$pt_id}";
 }
 $sql_posts = "SELECT p.*, u.login, u.avatar_url, pt.post_type, pt.class_icon FROM posts p INNER JOIN users u ON p.user_id = u.id INNER JOIN post_types pt ON p.post_type = pt.id {$where_sql_posts} ORDER BY show_count DESC";
 $result_posts = mysqli_query($con, $sql_posts);

@@ -17,14 +17,14 @@
                 <svg class="post__indicator-icon post__indicator-icon--like-active" width="20" height="17">
                   <use xlink:href="#icon-heart-active"></use>
                 </svg>
-                <span>250</span>
+                <span><?=$post['likes_count'];?></span>
                 <span class="visually-hidden">количество лайков</span>
               </a>
               <a class="post__indicator post__indicator--comments button" href="#" title="Комментарии">
                 <svg class="post__indicator-icon" width="19" height="17">
                   <use xlink:href="#icon-comment"></use>
                 </svg>
-                <span>25</span>
+                <span><?=$post['comments_count'];?></span>
                 <span class="visually-hidden">количество комментариев</span>
               </a>
               <a class="post__indicator post__indicator--repost button" href="#" title="Репост">
@@ -35,7 +35,12 @@
                 <span class="visually-hidden">количество репостов</span>
               </a>
             </div>
-            <span class="post__view"><?=$post['show_count'] . ' ' . get_noun_plural_form($post['show_count'], 'просмотр', 'просмотра', 'просмотров')?></span>
+            <span class="post__view">
+              <?php 
+                $show_count =  $post['show_count'] ?? 0;
+                echo $post['show_count'] . ' ' . get_noun_plural_form($post['show_count'], 'просмотр', 'просмотра', 'просмотров')
+              ?>        
+            </span>
           </div>
           <div class="comments">
             <form class="comments__form form" action="#" method="post">
