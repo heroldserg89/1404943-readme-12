@@ -3,7 +3,12 @@ require 'config.php';
 require 'helpers.php';
 
 $con = mysqli_connect('localhost', 'root', 'root', 'readme');
-$post_id = (int)$_GET['id'];
+
+$post_id = '';
+if(!empty($_GET['id'])){
+    $post_id = (int)$_GET['id'];  
+}
+
 $sql_post = "SELECT p.*, pt.post_type, pt.class_icon, COUNT(DISTINCT l.id) AS likes_count, COUNT(DISTINCT c.id) AS comments_count FROM posts p INNER JOIN post_types pt ON p.post_type = pt.id LEFT JOIN likes l ON l.post_id = p.id LEFT JOIN comments c ON c.post_id = p.id WHERE p.id = {$post_id}";
 
 $result_post = mysqli_query($con, $sql_post);
@@ -34,5 +39,5 @@ if ($result_post && (mysqli_num_rows($result_post) > 0 )) :
         'page_content' => $page_content
     ]);
 else :
-   http_response_code(404);
+    http_response_code(404);
 endif;
