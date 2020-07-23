@@ -38,14 +38,14 @@
                 <b class="popular__filters-caption filters__caption">Тип контента:</b>
                 <ul class="popular__filters-list filters__list">
                     <li class="popular__filters-item popular__filters-item--all filters__item filters__item--all">
-                        <a class="filters__button filters__button--ellipse filters__button--all filters__button--active" href="#">
+                        <a class="filters__button filters__button--ellipse filters__button--all <?=empty($_GET['pt_id']) ? 'filters__button--active' : ''; ?>" href="/">
                             <span>Все</span>
                         </a>
                     </li>
                     <?php foreach ($post_types as $key => $pt) :
                         if($pt['post_type'] == 'photo') : ?>
                              <li class="popular__filters-item filters__item">
-                                <a class="filters__button filters__button--photo button" href="#">
+                                <a class="filters__button filters__button--photo button <?=$_GET['pt_id'] == $pt['id'] ? 'filters__button--active' : ''; ?>" href="/?pt_id=<?=$pt['id']?>">
                                     <span class="visually-hidden">Фото</span>
                                     <svg class="filters__icon" width="22" height="18">
                                         <use xlink:href="#icon-filter-photo"></use>
@@ -54,7 +54,7 @@
                             </li>
                         <?php elseif ($pt['post_type'] == 'video') : ?>
                             <li class="popular__filters-item filters__item">
-                                <a class="filters__button filters__button--video button" href="#">
+                                <a class="filters__button filters__button--video button <?=$_GET['pt_id'] == $pt['id'] ? 'filters__button--active' : ''; ?>" href="/?pt_id=<?=$pt['id']?>">
                                     <span class="visually-hidden">Видео</span>
                                     <svg class="filters__icon" width="24" height="16">
                                         <use xlink:href="#icon-filter-video"></use>
@@ -63,7 +63,7 @@
                             </li>
                         <?php elseif ($pt['post_type'] == 'text') : ?>
                             <li class="popular__filters-item filters__item">
-                                <a class="filters__button filters__button--text button" href="#">
+                                <a class="filters__button filters__button--text button <?=$_GET['pt_id'] == $pt['id'] ? 'filters__button--active' : ''; ?>" href="/?pt_id=<?=$pt['id']?>">
                                     <span class="visually-hidden">Текст</span>
                                     <svg class="filters__icon" width="20" height="21">
                                         <use xlink:href="#icon-filter-text"></use>
@@ -72,7 +72,7 @@
                             </li>
                         <?php elseif ($pt['post_type'] == 'quote') : ?>
                             <li class="popular__filters-item filters__item">
-                                <a class="filters__button filters__button--quote button" href="#">
+                                <a class="filters__button filters__button--quote button <?=$_GET['pt_id'] == $pt['id'] ? 'filters__button--active' : ''; ?>" href="/?pt_id=<?=$pt['id']?>">
                                     <span class="visually-hidden">Цитата</span>
                                     <svg class="filters__icon" width="21" height="20">
                                         <use xlink:href="#icon-filter-quote"></use>
@@ -81,7 +81,7 @@
                             </li>
                         <?php elseif ($pt['post_type'] == 'link') : ?>
                             <li class="popular__filters-item filters__item">
-                                <a class="filters__button filters__button--link button" href="#">
+                                <a class="filters__button filters__button--link button <?=$_GET['pt_id'] == $pt['id'] ? 'filters__button--active' : ''; ?>" href="/?pt_id=<?=$pt['id']?>">
                                     <span class="visually-hidden">Ссылка</span>
                                     <svg class="filters__icon" width="21" height="18">
                                         <use xlink:href="#icon-filter-link"></use>
@@ -101,7 +101,7 @@
 
                 <article class="popular__post post <?=$post['class_icon']; ?>">
                     <header class="post__header">
-                        <h2><?=htmlspecialchars($post['title']); ?></h2>
+                        <a href="/post.php?id=<?=$post['id']?>"><h2><?=htmlspecialchars($post['title']); ?></h2></a>
                     </header>
                     <div class="post__main">
                         <?php if ($post['post_type'] == 'quote') : ?>
@@ -122,12 +122,12 @@
                                             <h3><?=htmlspecialchars($post['title']); ?></h3>
                                         </div>
                                     </div>
-                                    <span> <?=htmlspecialchars($post['content']); ?></span>
+                                    <span> <?=htmlspecialchars($post['link']); ?></span>
                                 </a>
                             </div>
                         <?php elseif ($post['post_type'] == 'photo') : ?>
                              <div class="post-photo__image-wrapper">
-                                <img src="<?=htmlspecialchars($post['content']); ?>" alt="Фото от пользователя" width="360" height="240">
+                                <img src="<?=htmlspecialchars($post['image_url']); ?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
                         <?php elseif ($post['post_type'] == 'text') : ?>
                             <?=cropText(htmlspecialchars($post['content'])); ?>
@@ -154,30 +154,7 @@
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><?=htmlspecialchars($post['login']); ?></b>
-                                    <?php 
-                                       
-                                        $date_publish = $post['publication_dt'];
-                                        $cur_date = strtotime('now');
-                                        $date_interval = ($cur_date - strtotime($date_publish))/60;
-
-                                        if ($date_interval < 60) {
-                                            $date_noun_form = get_noun_plural_form($date_interval, 'минута', 'минуты', 'минут');
-                                        } elseif ($date_interval / 60 < 24) {
-                                            $date_interval = ceil($date_interval / 60);
-                                            $date_noun_form = get_noun_plural_form($date_interval, 'час', 'часа', 'часов');
-                                        } elseif ($date_interval / (60 * 24) < 7) {
-                                            $date_interval = ceil($date_interval / (60 * 24));
-                                            $date_noun_form = get_noun_plural_form($date_interval, 'день', 'дня', 'дней');
-                                        } elseif ($date_interval / (60 * 24 * 7) < 5) {
-                                            $date_interval = ceil($date_interval / (60 * 24 * 7));
-                                            $date_noun_form = get_noun_plural_form($date_interval, 'неделю', 'недели', 'недель');
-                                        } else {
-                                            $date_interval = ceil($date_interval / (60 * 24 * 30 ));
-                                            $date_noun_form = get_noun_plural_form($date_interval, 'месяц', 'месяца', 'месяцев');
-                                        }
-                                        $date_interval_relative = "{$date_interval} {$date_noun_form} назад";
-                                    ?>
-                                    <time class="post__time" title="<?=date('d.m.Y H:i', strtotime($date_publish));?>" datetime="<?=$date_publish;?>"><?=$date_interval_relative;?></time>
+                                    <time class="post__time" title="<?=date('d.m.Y H:i', strtotime($post['publication_dt']));?>" datetime="<?=$post['publication_dt'];?>"><?=date_interval($post['publication_dt'] , 'назад');?></time>
                                 </div>
                             </a>
                         </div>

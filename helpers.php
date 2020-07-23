@@ -259,3 +259,48 @@ function generate_random_date($index)
 
     return $dt;
 }
+
+// Обрезка текста
+function cropText($text, $length = 300)
+{
+    if (mb_strlen($text) <= $length) {
+        return '<p>' . $text . '</p>';
+    } else {
+        $text = explode(' ', $text);
+        $length_word = 0;
+        foreach ($text as $word) {
+            $length_word += (mb_strlen($word)) + 1;
+            if ($length_word > 300) {
+                break;
+            } else {
+                $text_sup[]= $word; 
+            }
+        }
+        return '<p>' . implode(' ', $text_sup) . '...</p><a class="post-text__more-link" href="#">Читать далее</a>';
+    }
+}
+
+//Вывод интервала времени
+
+function date_interval($date, $text)
+{
+    $cur_date = strtotime('now');
+    $date_interval = ($cur_date - strtotime($date))/60;
+
+    if ($date_interval < 60) {
+        $date_noun_form = get_noun_plural_form($date_interval, 'минута', 'минуты', 'минут');
+    } elseif ($date_interval / 60 < 24) {
+        $date_interval = ceil($date_interval / 60);
+        $date_noun_form = get_noun_plural_form($date_interval, 'час', 'часа', 'часов');
+    } elseif ($date_interval / (60 * 24) < 7) {
+        $date_interval = ceil($date_interval / (60 * 24));
+        $date_noun_form = get_noun_plural_form($date_interval, 'день', 'дня', 'дней');
+    } elseif ($date_interval / (60 * 24 * 7) < 5) {
+        $date_interval = ceil($date_interval / (60 * 24 * 7));
+        $date_noun_form = get_noun_plural_form($date_interval, 'неделю', 'недели', 'недель');
+    } else {
+        $date_interval = ceil($date_interval / (60 * 24 * 30 ));
+        $date_noun_form = get_noun_plural_form($date_interval, 'месяц', 'месяца', 'месяцев');
+    }
+     return $date_interval_relative = "{$date_interval} {$date_noun_form} {$text}";
+}

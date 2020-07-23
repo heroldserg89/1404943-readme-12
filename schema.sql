@@ -34,7 +34,7 @@ CREATE DATABASE readme
 		image_url VARCHAR(128),
 		link VARCHAR(128),
 		video_url VARCHAR(128),
-		show_count INT,
+		show_count INT DEFAULT 0,
 		user_id INT,
 		post_type INT,
 		hashtag INT,
